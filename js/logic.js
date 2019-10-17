@@ -40,8 +40,33 @@ $(document).ready(function(){
         train.push(trainSchedule);
       });
 
-      train.on("child-added", function(snapshot){
+      train.on("child_added", function(snapshot){
         var newRow = $("<tr>");
         
+        var frequency = snapshot.val().frequency;
+        var firstTrainTime = snapshot.val().firsTrainTime;
+        var nextArrival = getNextArrivalTime(firstTrainTime,frequency);
+        // console.log(nextArrival);
+        var minsAway = moment().to(moment(nextArrival,"HH:mm"));
+        
+        newRow.append("<td>"+snapshot.val().name+"</td>");
+        newRow.append("<td>"+snapshot.val().destination+"</td>");
+        newRow.append("<td>"+frequency+"</td>");
+        newRow.append("<td>"+moment(nextArrival).format("HH:mm")+"</td>");
+        newRow.append("<td>"+minsAway+"</td>");
+
+        $("#trainsTable").append(newRow);
       });
+
+      // Function to calculate the next arrival time
+      function getNextArrivalTime(hour, frequency){
+          var nextArrival = moment(hour,"HH:mm");
+
+          while(nextArrival.isSameOrBefore(moment())){
+            console.log("Initial: "+moment(nextArrival).format("HH:mm"));  
+            nextArrival = moment(nextArrival,"HH:mm").add(frequency,"minutes");
+            console.log("Final: "+moment(nextArrival).format("HH:mm"));
+          }
+          return nextArrival;
+      }
 });
