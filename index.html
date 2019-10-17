@@ -18,8 +18,65 @@
 
     <!-- Moments JS Reference -->
     <script src="https://momentjs.com/downloads/moment.js"></script>
+    <!-- Train schedule logic reference -->
+    <script src="js/logic.js"></script>
 </head>
 <body>
-
+    <div class="container">
+        <!-- JUMBOTRON INIT -->
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">TRAIN INFORMATION</h1>
+                <p class="lead">Here's the most current train schedule information</p>
+            </div>
+        </div>
+        <!-- JUMBOTRON END-->
+        <hr>
+        <!-- TRAIN TABLE INIT -->
+        <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Train Name</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Frequency (mins)</th>
+                    <th scope="col">Next Arrival</th>
+                    <th scope="col">Minutes Away</th>
+                    </tr>
+                </thead>
+                <tbody id="employeesTable">
+                    <!-- <tr>
+                        <td>Omar</td>
+                        <td>Student</td>
+                        <td>27/08/2019</td>
+                        <td>2</td>
+                        <td>$xxx</td>
+                    </tr> -->
+                </tbody>
+        </table>
+        <!-- TRAIN TABLE END    -->
+        <hr>
+        <!-- NEW TRAIN FORM INIT-->
+        <form>
+            <div class="form-group">
+                <label for="trainName">Train Name</label>
+                <input type="text" class="form-control" id="trainName" placeholder="Enter train name">
+            </div>
+            <div class="form-group">
+                <label for="role"></label>Destination</label>
+                <input type="text" class="form-control" id="destinationText" placeholder="End Destination">
+            </div>
+            <div class="form-group">
+                <label for="firstTrain"></label>First Train Time (HH:mm)</label>
+                <input type="text" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}" class="form-control" id="firstTrainTime" placeholder="00:00">
+            </div>
+            <div class="form-group">
+                <label for="Frequency"></label>Frequency (mins)</label>
+                <input type="number" class="form-control" id="monthlyRate" placeholder="00">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+            <!-- FORM END-->
+    </div>
 </body>
 </html>
