@@ -26,18 +26,33 @@ $(document).ready(function(){
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       // Database reference
-      var database = firebase.database();
+        
       // Database object reference
       var train = database.ref("trains");
 
+      // input variables
+      var trainName = "";
+      var destinationText = "";
+      var firstTrainTime = "";
+      var frequencyMins = 0;
+
+      var regex = "^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$";
+
       $("#addTrain").on("click", function(){
         // Retrieving input from the form
-        trainSchedule.name = $("#trainName").val().trim();
-        trainSchedule.destination = $("#destinationText").val().trim();
-        trainSchedule.firsTrainTime = $("#firstTrainTime").val().trim();
-        trainSchedule.frequency = $("#frequencyMins").val().trim();
-        // adding a new train to the DB
-        train.push(trainSchedule);
+        trainName = $("#trainName").val().trim();
+        destinationText = $("#destinationText").val().trim();
+        firstTrainTime = $("#firstTrainTime").val().trim();
+        frequencyMins = $("#frequencyMins").val().trim();
+
+        if(validateFormat){
+          trainSchedule.name = trainName;
+          trainSchedule.destination = destinationText;
+          trainSchedule.firsTrainTime = firstTrainTime;;
+          trainSchedule.frequency = frequencyMins;
+          // adding a new train to the DB
+          train.push(trainSchedule);
+        }
       });
 
       train.on("child_added", function(snapshot){
@@ -68,5 +83,11 @@ $(document).ready(function(){
             console.log("Final: "+moment(nextArrival).format("HH:mm"));
           }
           return nextArrival;
+      }
+
+      function validateFormat(){
+        if (trainName != "" && destinationText != "" && firstTrainTime.match(regex) && frequencyMins != 0)
+          return true;
+        else false
       }
 });
