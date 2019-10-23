@@ -26,7 +26,7 @@ $(document).ready(function(){
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       // Database reference
-        
+      var database = firebase.database();
       // Database object reference
       var train = database.ref("trains");
 
